@@ -24,12 +24,12 @@ module Measurements
           r = carbonator.parse(h)
           log(:result => r) if r
         end
+        200
       end
     end
 
     post('/') do
       parse_events(params[:payload]) 
-      'ok'
     end
   end
 end
