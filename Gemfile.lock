@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    carbonator (0.0.5)
+    carbonator (0.0.8)
       kv (= 0.0.5)
     daemons (1.1.9)
     eventmachine (1.0.0)
@@ -28,7 +28,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  carbonator
+  carbonator (= 0.0.8)
   foreman
   json
   scrolls
