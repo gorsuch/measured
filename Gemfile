@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'carbonator', '0.0.8'
+gem 'carbonator', :git => 'https://github.com/gorsuch/carbonator.git'
 gem 'json'
 gem 'scrolls'
 gem 'sinatra'
