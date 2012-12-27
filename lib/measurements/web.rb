@@ -14,6 +14,6 @@ module Measurements
       end
     end
 
-    post('/') { parse_events(request.body.read) }
+    post('/') { parse_events(params[:payload]) }
   end
 end
