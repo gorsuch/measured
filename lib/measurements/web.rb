@@ -3,6 +3,10 @@ require 'sinatra/base'
 module Measurements
   class Web < Sinatra::Base
     helpers do
+      def carbonator
+        @carbonator ||= Carbonator::Parser.new
+      end
+
       def log(data, &blk)
         Scrolls.log(data, &blk)
       end
@@ -13,7 +17,8 @@ module Measurements
         log(:event_count => events.size) 
         events.each do |e|
           h = KV.parse(e['message'])
-          log(h)
+          r = carbonator.parse(h)
+          log(:result => r) if r
         end
       end
     end
