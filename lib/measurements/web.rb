@@ -2,9 +2,13 @@ require 'sinatra/base'
 
 module Measurements
   class Web < Sinatra::Base
+    configure do
+      @@carbonator = nil
+    end
+
     helpers do
       def carbonator
-        @carbonator ||= Carbonator::Parser.new
+        @@carbonator ||= Carbonator::Parser.new
       end
 
       def log(data, &blk)
