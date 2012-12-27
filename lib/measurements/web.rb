@@ -11,6 +11,10 @@ module Measurements
         data = JSON.parse(body)
         events = data['events']
         log(:event_count => events.size) 
+        events.each do |e|
+          h = KV.parse(e['message'])
+          log(h)
+        end
       end
     end
 

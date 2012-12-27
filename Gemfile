@@ -1,5 +1,6 @@
 source :rubygems
 
+gem 'carbonator'
 gem 'json'
 gem 'scrolls'
 gem 'sinatra'
