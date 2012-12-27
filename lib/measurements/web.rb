@@ -8,7 +8,7 @@ module Measurements
       end
 
       def parse_events(body)
-        data = JSON.parse(data)
+        data = JSON.parse(body)
         events = data['events']
         log(:event_count => events.size) 
       end
