@@ -1,4 +1,4 @@
-require 'measurements'
-require 'measurements/web'
+require 'measured'
+require 'measured/web'
 
-run Measurements::Web
+run Measured::Web

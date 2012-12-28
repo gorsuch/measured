@@ -1,16 +1,12 @@
 require 'sinatra/base'
 
-module Measurements
+module Measured
   class Web < Sinatra::Base
     configure do
-      Scrolls.global_context(:app => 'measurements', :deploy => deploy)
+      Scrolls.global_context(:app => 'measurements', :deploy => ENV['DEPLOY'] || 'dev')
     end
 
     helpers do
-      def deploy
-        ENV['DEPLOY'] || 'dev'
-      end
-
       def log(data, &blk)
         Scrolls.log(data, &blk)
       end
