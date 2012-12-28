@@ -28,7 +28,6 @@ module Measurements
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
           socket.puts(r)
-          log(:recorded => r)
           sleep 0.05
         end
         socket.close
