@@ -3,6 +3,7 @@ require 'sinatra/base'
 module Measurements
   class Web < Sinatra::Base
     configure do
+      Scrolls.global_context(:app => 'measurements', :deploy => ENV['DEPLOY'] || 'dev')
       @@carbonator = nil
       @@socket = nil
     end
