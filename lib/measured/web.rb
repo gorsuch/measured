@@ -7,6 +7,10 @@ module Measured
     end
 
     helpers do
+      def carbon_url
+        ENV['CARBON_URL'] || 'tcp://carbon.hostedgraphite.com:2003'
+      end
+
       def log(data, &blk)
         Scrolls.log(data, &blk)
       end
@@ -15,8 +19,8 @@ module Measured
         data = JSON.parse(body)
         events = data['events']
         log(:events => events.size) 
-        carbonator = Carbonator::Parser.new(:prefix => prefix)
-        socket = TCPSocket.new 'carbon.hostedgraphite.com', 2003
+        carbonator = new_carbonator
+        socket = new_socket
         events.sort_by do |e|
           Time.parse(e['received_at'])
         end.each do |e|
@@ -26,6 +30,15 @@ module Measured
           sleep 0.05
         end
         socket.close
+      end
+
+      def new_carbonator
+        Carbonator::Parser.new(:prefix => prefix)
+      end
+
+      def new_socket
+        uri = URI.parse(carbon_url)
+        TCPSocket.new uri.host, uri.port
       end
 
       def prefix
