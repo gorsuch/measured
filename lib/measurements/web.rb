@@ -3,14 +3,12 @@ require 'sinatra/base'
 module Measurements
   class Web < Sinatra::Base
     configure do
-      Scrolls.global_context(:app => 'measurements', :deploy => ENV['DEPLOY'] || 'dev')
-      @@carbonator = nil
-      @@socket = nil
+      Scrolls.global_context(:app => 'measurements', :deploy => deploy)
     end
 
     helpers do
-      def carbonator
-        @@carbonator ||= Carbonator::Parser.new(:prefix => prefix)
+      def deploy
+        ENV['DEPLOY'] || 'dev'
       end
 
       def log(data, &blk)
@@ -21,6 +19,7 @@ module Measurements
         data = JSON.parse(body)
         events = data['events']
         log(:events => events.size) 
+        carbonator = Carbonator::Parser.new(:prefix => prefix)
         socket = TCPSocket.new 'carbon.hostedgraphite.com', 2003
         events.sort_by do |e|
           Time.parse(e['received_at'])
