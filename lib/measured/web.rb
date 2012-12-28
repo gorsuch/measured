@@ -25,7 +25,7 @@ module Measured
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
           socket.puts(r)
-          sleep 0.05
+          sleep sleep_time
         end
         socket.close
       end
@@ -41,6 +41,10 @@ module Measured
 
       def prefix
         ENV['PREFIX'] || 'measurements'
+      end
+
+      def sleep_time
+        ENV['SLEEP_TIME'] || 0.1
       end
     end
 
