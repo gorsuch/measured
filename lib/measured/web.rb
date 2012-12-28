@@ -21,9 +21,7 @@ module Measured
         log(:events => events.size) 
         carbonator = new_carbonator
         socket = new_socket
-        events.sort_by do |e|
-          Time.parse(e['received_at'])
-        end.each do |e|
+        events.each do |e|
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
           socket.puts(r)
