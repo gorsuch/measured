@@ -45,6 +45,7 @@ module Measured
     end
 
     post('/') do
+      # fork because this can take a while
       fork do
         parse_events(params[:payload]) 
       end
