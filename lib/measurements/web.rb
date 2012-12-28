@@ -28,7 +28,7 @@ module Measurements
           r = carbonator.parse(h)
           write(r)
           log(:recorded => r)
-          sleep 0.01
+          sleep 0.05
         end
         200
       end
