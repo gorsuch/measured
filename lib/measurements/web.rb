@@ -20,7 +20,7 @@ module Measurements
       def parse_events(body)
         data = JSON.parse(body)
         events = data['events']
-        log(:event_count => events.size) 
+        log(:events => events.size) 
         events.each do |e|
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
