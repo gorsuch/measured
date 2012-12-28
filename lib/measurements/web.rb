@@ -4,11 +4,12 @@ module Measurements
   class Web < Sinatra::Base
     configure do
       @@carbonator = nil
+      @@socket = nil
     end
 
     helpers do
       def carbonator
-        @@carbonator ||= Carbonator::Parser.new
+        @@carbonator ||= Carbonator::Parser.new(:prefix => prefix)
       end
 
       def log(data, &blk)
@@ -22,9 +23,21 @@ module Measurements
         events.each do |e|
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
-          log(:result => r) if r
+          write(r)
         end
         200
+      end
+
+      def prefix
+        ENV['PREFIX'] || 'measurements'
+      end
+
+      def socket
+        @@socket ||= TCPSocket.new 'carbon.hostedgraphite.com', 2003
+      end
+
+      def write(s)
+        socket.puts(s)
       end
     end
 
