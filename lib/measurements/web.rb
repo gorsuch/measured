@@ -21,6 +21,7 @@ module Measurements
         data = JSON.parse(body)
         events = data['events']
         log(:events => events.size) 
+        log(:keys => events.first.keys)
         events.each do |e|
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
