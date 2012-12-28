@@ -21,11 +21,13 @@ module Measurements
         data = JSON.parse(body)
         events = data['events']
         log(:events => events.size) 
-        log(:receeved_at => Time.parse(events.first['received_at']))
-        events.each do |e|
+        events.sort_by do |e|
+          Time.parse(e['received_at'])
+        end.each do |e|
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
           write(r)
+          log(:recorded => r)
         end
         200
       end
