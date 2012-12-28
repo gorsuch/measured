@@ -21,33 +21,29 @@ module Measurements
         data = JSON.parse(body)
         events = data['events']
         log(:events => events.size) 
+        socket = TCPSocket.new 'carbon.hostedgraphite.com', 2003
         events.sort_by do |e|
           Time.parse(e['received_at'])
         end.each do |e|
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
-          write(r)
+          socket.puts(r)
           log(:recorded => r)
           sleep 0.05
         end
-        200
+        socket.close
       end
 
       def prefix
         ENV['PREFIX'] || 'measurements'
       end
-
-      def socket
-        @@socket ||= TCPSocket.new 'carbon.hostedgraphite.com', 2003
-      end
-
-      def write(s)
-        socket.puts(s)
-      end
     end
 
     post('/') do
-      parse_events(params[:payload]) 
+      fork do
+        parse_events(params[:payload]) 
+      end
+      200
     end
   end
 end
