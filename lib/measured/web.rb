@@ -25,6 +25,8 @@ module Measured
           h = KV.parse(e['message'])
           r = carbonator.parse(h)
           socket.puts(r)
+          # Hosted Graphite seems to have some rate-limiting
+          # so we sleep between requests
           sleep sleep_time
         end
         socket.close
