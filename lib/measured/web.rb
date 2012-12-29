@@ -46,7 +46,7 @@ module Measured
       end
 
       def sleep_time
-        ENV['SLEEP_TIME'] || 0.1
+        sleep_time = ENV['SLEEP_TIME'] ? sleep_time.to_i : 0.1
       end
     end
 
