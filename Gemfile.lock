@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/gorsuch/statsdeify.git
-  revision: 6892543a20a769fbcbd3394b823440acb97c62f0
+  revision: 456b54a68ec5ae2f0fdc87d78d3d1df18678aea0
   specs:
-    statsdeify (0.0.2)
+    statsdeify (0.0.3)
 
 GEM
   remote: http://rubygems.org/
