@@ -10,4 +10,4 @@ measure=foo.bar value=1
 
 Note that `measure=foo.bar` and `value=1` can be anywhere within the line.
 
-The resultant metric send on to statsd would be `foo.bar:1|g`.
+The resultant metric sent on to statsd would be `foo.bar:1|g`.
