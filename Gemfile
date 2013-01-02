@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'carbonator', :git => 'https://github.com/gorsuch/carbonator.git'
+gem 'statsdeify', '0.0.1'
 gem 'json'
 gem 'scrolls'
 gem 'sinatra'
