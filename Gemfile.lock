@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/gorsuch/statsdeify.git
+  revision: 6892543a20a769fbcbd3394b823440acb97c62f0
+  specs:
+    statsdeify (0.0.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -14,7 +20,6 @@ GEM
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
-    statsdeify (0.0.1)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -30,5 +35,5 @@ DEPENDENCIES
   json
   scrolls
   sinatra
-  statsdeify (= 0.0.1)
+  statsdeify!
   thin

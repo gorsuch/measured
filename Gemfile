@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'statsdeify', '0.0.1'
+gem 'statsdeify', :git => 'https://github.com/gorsuch/statsdeify.git'
 gem 'json'
 gem 'scrolls'
 gem 'sinatra'
