@@ -7,3 +7,7 @@ It accepts Papertrail `POSTS` requests on `/` and converts lines that looks like
 ```
 measure=foo.bar value=1
 ```
+
+The resultant metric would be `measurement.foo.bar`.  If the logline contains a `timestamp` message, that will be used otherwise one will be provided for you.
+
+The `carbon` endpoint can be configured by modifying `CARBON_URL`.
