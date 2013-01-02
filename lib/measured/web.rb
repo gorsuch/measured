@@ -7,8 +7,8 @@ module Measured
     end
 
     helpers do
-      def carbon_url
-        ENV['CARBON_URL'] || 'tcp://carbon.hostedgraphite.com:2003'
+      def statsd_url
+        ENV['STATSD_URL'] || raise("STATSD_URL not defined in ENV")
       end
 
       def log(data, &blk)
@@ -19,43 +19,20 @@ module Measured
         data = JSON.parse(body)
         events = data['events']
         log(:events => events.size) 
-        carbonator = new_carbonator
-        socket = new_socket
         events.each do |e|
-          h = KV.parse(e['message'])
-          r = carbonator.parse(h)
-          socket.puts(r)
-          # Hosted Graphite seems to have some rate-limiting
-          # so we sleep between requests
-          sleep sleep_time
+          m = Statsdeify::Measurement.from_line(e)
+          writer.puts(m) if m
         end
-        socket.close
+        200
       end
 
-      def new_carbonator
-        Carbonator::Parser.new(:prefix => prefix)
-      end
-
-      def new_socket
-        uri = URI.parse(carbon_url)
-        TCPSocket.new uri.host, uri.port
-      end
-
-      def prefix
-        ENV['PREFIX'] || 'measurements'
-      end
-
-      def sleep_time
-        sleep_time = ENV['SLEEP_TIME'] ? sleep_time.to_f : 0.1
+      def writer
+        @writer ||= Statsdeify::Writer.new(statsd_url)
       end
     end
 
     post('/') do
-      # fork because this can take a while
-      fork do
-        parse_events(params[:payload]) 
-      end
-      200
+      parse_events(params[:payload]) 
     end
   end
 end
