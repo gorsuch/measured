@@ -2,10 +2,6 @@ require 'sinatra/base'
 
 module Measured
   class Web < Sinatra::Base
-    use Rack::Auth::Basic, "Restricted Area" do |username, password|
-      [username, password] == [Measured::Config.auth_username, Measured::Config.auth_password]
-    end
-
     configure do
       Scrolls.global_context(:app => 'measurements', :deploy => Config.deploy)
       @@writer = nil
@@ -43,6 +39,7 @@ module Measured
     end
 
     post('/') do
+      return 401 unless params[:auth_token] == Config.auth_token
       parse_events(params[:payload]) 
     end
   end

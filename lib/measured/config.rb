@@ -6,12 +6,8 @@ module Measured
       ENV[key] || raise("#{key} not in ENV")
     end
 
-    def auth_username
-      env!('AUTH_USER')
-    end
-
-    def auth_password
-      env!('AUTH_PASS')
+    def auth_token
+      env!('AUTH_TOKEN')
     end
 
     def deploy
