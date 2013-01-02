@@ -22,7 +22,13 @@ module Measured
         log(:events => events.size) 
         events.each do |e|
           m = Statsdeify::Measurement.from_line(e['message'])
-          writer.puts(m) if m
+          if m
+            begin
+              writer.puts(m)
+            rescue Errno::ECONNREFUSED => e
+              log(:exception => e.message)
+            end
+          end
         end
         200
       end
