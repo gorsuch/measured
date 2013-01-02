@@ -13,5 +13,13 @@ module Measured
     def auth_password
       env!('AUTH_PASSWORD')
     end
+
+    def deploy
+      ENV['DEPLOY'] || 'dev'
+    end
+
+    def statsd_url
+      env!('STATSD_URL')
+    end
   end
 end

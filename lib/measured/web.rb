@@ -3,13 +3,13 @@ require 'sinatra/base'
 module Measured
   class Web < Sinatra::Base
     configure do
-      Scrolls.global_context(:app => 'measurements', :deploy => ENV['DEPLOY'] || 'dev')
+      Scrolls.global_context(:app => 'measurements', :deploy => Config.deploy)
       @@writer = nil
     end
 
     helpers do
       def statsd_url
-        ENV['STATSD_URL'] || raise("STATSD_URL not defined in ENV")
+        Config.statsd_url
       end
 
       def log(data, &blk)
