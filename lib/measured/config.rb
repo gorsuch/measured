@@ -11,7 +11,7 @@ module Measured
     end
 
     def auth_password
-      env!('AUTH_PASSWORD')
+      env!('AUTH_PASS')
     end
 
     def deploy
