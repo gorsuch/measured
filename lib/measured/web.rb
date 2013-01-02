@@ -4,6 +4,7 @@ module Measured
   class Web < Sinatra::Base
     configure do
       Scrolls.global_context(:app => 'measurements', :deploy => ENV['DEPLOY'] || 'dev')
+      @@writer = nil
     end
 
     helpers do
@@ -27,7 +28,7 @@ module Measured
       end
 
       def writer
-        @writer ||= Statsdeify::Writer.new(statsd_url)
+        @@writer ||= Statsdeify::Writer.new(statsd_url)
       end
     end
 
