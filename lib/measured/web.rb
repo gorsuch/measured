@@ -20,7 +20,7 @@ module Measured
         events = data['events']
         log(:events => events.size) 
         events.each do |e|
-          m = Statsdeify::Measurement.from_line(e)
+          m = Statsdeify::Measurement.from_line(e['message'])
           writer.puts(m) if m
         end
         200
