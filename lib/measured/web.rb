@@ -26,7 +26,7 @@ module Measured
             begin
               writer.puts(m)
             rescue Errno::ECONNREFUSED => e
-              log(:exception => e.message)
+              log(:fn => :parse_events, :exception => e.message)
             end
           end
         end
